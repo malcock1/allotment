@@ -1,5 +1,5 @@
 # allotment
 
  # # # # # # # # # #
-# Plants and plans #
+. Plants and plans .
 # # # # # # # # # #

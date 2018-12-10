@@ -1,1 +1,2 @@
-web: gunicorn allotment/allotment/wsgi.py --log-file -
+web: gunicorn allotment/allotment/wsgi:application --log-file -
+

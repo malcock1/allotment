@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Plants</title>
-</head>
-<body>
-<h1>Plants home</h1>
-<form>
-	{% include "form_template" with form as form %}
-		
-</form>
-</body>
-</html>
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+	<form>
+		{% csrf_token %}
+			{% bootstrap_form form %}
+		  {% buttons %}
+		    <button type="submit" class="btn btn-primary">Submit</button>
+		{% endbuttons %}
+	</form>
+{% endblock content %}

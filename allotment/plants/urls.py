@@ -3,5 +3,5 @@ import plants
 from .views import *
 
 urlpatterns = [
-    url(r'^$', index, name='plants_home'),
+    url(r'^', index, name='plants_home'),
 ]

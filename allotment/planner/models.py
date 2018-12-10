@@ -27,3 +27,10 @@ class Month(models.Model):
 	For now on the Plant I'll just use an Integer field rather than FK to a month
 	"""
 	name = models.CharField(max_length=10)
+
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		ordering = ['id']

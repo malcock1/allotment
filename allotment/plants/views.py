@@ -9,4 +9,5 @@ def index(request):
     context = {
         'form': PlantSpeciesForm(),
     }
+    # if reque
     return render(request, 'plants/home.html', context)

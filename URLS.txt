@@ -1,0 +1,24 @@
+# A list of potential url endpoints
+
+| URL | Function | Description |
+| ----- | ---------- | ------------- |
+| /plants | ??? | View all plants |
+| /plants/<id> | ??? | View specific plant |
+| /plants/add | ??? | Add new plants |
+| /plants/edit/<id> | ??? | Edit a plant |
+| /plants/remove/<id> | ??? | Remove a plant |
+| /designs | ??? | View all designs Whole allotment or partial allotment |
+| /designs/<id> | ??? | View specific design |
+| /designs/add | ??? | Add a new design |
+| /designs/edit/<id> | ??? | Edit a design |
+| /designs/remove/<id> | ??? | Remove a design |
+| /planner | ??? | View whole year calender planner |
+| /planner/<id> | ??? | view Specific month |
+| /planner/<id>/add | ??? | Add an item to the planner |
+| /planner/<id>/edit/<id> | ??? | Edit an item in the planner |
+| /planner/<id>/remove/<id> | ??? | Remove an item from the planner |
+| /suppliers | ??? | View all suppliers |
+| /suppliers/<id> | ??? | View specific supplier |
+| /suppliers/add | ??? | Add a new supplier |
+| /suppliers/edit/<id> | ??? | Edit a supplier |
+| /suppliers/remove/<id> | ??? | Remove a supplier |

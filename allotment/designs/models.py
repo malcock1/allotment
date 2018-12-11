@@ -17,10 +17,10 @@ class Design(models.Model):
     width = models.IntegerField()
     height = models.IntegerField()
 
- def __unicode__(self):
-     return "Design: " + self.name
+    def __unicode__(self):
+        return "Design: " + self.name
 
-class Bed(model.Model):
+class Bed(models.Model):
     """
     This model is a raise bed or an area to plant plants
     it has a ForeignKey to th associated design.
@@ -30,10 +30,10 @@ class Bed(model.Model):
     description = models.TextField(blank=True)
     width = models.IntegerField()
     height = models.IntegerField()
-    design = models.ForeignKey(Design)
+    design = models.ForeignKey(Design, on_delete=models.SET_NULL, null=True)
     plants = models.ManyToManyField(Plant)  # From plants.models.Plant
 
- def __unicode__(self):
-     return "Bed: " + self.name
+    def __unicode__(self):
+        return "Bed: " + self.name
 
 

@@ -31,7 +31,7 @@ class Bed(models.Model):
     width = models.IntegerField()
     height = models.IntegerField()
     design = models.ForeignKey(Design, on_delete=models.SET_NULL, null=True)
-    plants = models.ManyToManyField(Plant)  # From plants.models.Plant
+    plants = models.ManyToManyField(Plant, blank=True, null=True)  # From plants.models.Plant
 
     def __unicode__(self):
         return "Bed: " + self.name

@@ -14,10 +14,11 @@ class Design(models.Model):
     """
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
-    width = models.IntegerField()
-    height = models.IntegerField()
+    width = models.PositiveSmallIntegerField()
+    height = models.PositiveSmallIntegerField()
+    beds = models.ManyToManyField(Bed, related_name="beds")
 
-    def __unicode__(self):
+    def __str__(self):
         return "Design: " + self.name
 
 class Bed(models.Model):
@@ -28,12 +29,13 @@ class Bed(models.Model):
 
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
-    width = models.IntegerField()
-    height = models.IntegerField()
-    design = models.ForeignKey(Design, on_delete=models.SET_NULL, null=True)
+    width = models.PositiveSmallIntegerField()
+    height = models.PositiveSmallIntegerField()
+    x height = models.PositiveSmallIntegerField()
+    y = models.PositiveSmallIntegerField()
     plants = models.ManyToManyField(Plant, blank=True, null=True)  # From plants.models.Plant
 
-    def __unicode__(self):
+    def __str__(self):
         return "Bed: " + self.name
 
 

@@ -34,17 +34,6 @@ class PlantSpecies(models.Model):
 		else:
 			return self.name
 
-
-class Bed(models.Model):
-	"""
-	Location in the allotment 
-	We might have to do something like the tile system on plantz...
-	This is very very unfinished :P
-	"""
-	x = models.PositiveSmallIntegerField(null=True)
-	y = models.PositiveSmallIntegerField(null=True)
-	
-
 class PlantSource(models.Model):
 	name = models.CharField(max_length=128)
 	web_address = models.CharField(max_length=256)
@@ -52,11 +41,15 @@ class PlantSource(models.Model):
 
 class Plant(models.Model):
 	""" An instance of a real physical plant or seed """
+
 	species = models.ForeignKey(PlantSpecies, on_delete=models.PROTECT)
 	location = models.ForeignKey(Bed, null=True, on_delete=models.SET_NULL)
+
 	# Could put harvested weight in here?
 	source = models.ForeignKey(PlantSource, null=True, on_delete=models.SET_NULL)
 	cost = models.PositiveSmallIntegerField() # In pence per plant/seed
+
+        bed = models.ForeignKey('design.Bed', on_delete=models.CASCADE, null=True)
 
 
 class Harvest(models.Model):

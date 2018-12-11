@@ -1,5 +1,6 @@
 {% extends "allotment/base.html" %}
 {% load bootstrap4 %}
+{% load design_tags %}
 
 
 {% block content %}
@@ -24,6 +25,15 @@
                 </tbody>
             </table>
 		</div>
+	</div>
+	<div class="row">
+            {% for y in design.height|times %}
+                <div class="col">
+                    {% for x in design.width|times %}
+                        <div id="x_{{x}}_y_{{y}}" style="border-style: solid">{{x}}, {{y}}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
 	</div>
 </div>
 

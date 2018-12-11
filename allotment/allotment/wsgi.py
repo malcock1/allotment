@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 
 import os, sys
 import django
-from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "allotment.settings")
 
 django.setup()
 
+from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

@@ -1,2 +1,2 @@
-web: gunicorn allotment.wsgi:application --pythonpath ./allotment --log-file -
+web: gunicorn allotment.allotment.wsgi:application --pythonpath ./allotment --log-file -
 

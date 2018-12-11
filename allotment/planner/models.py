@@ -13,7 +13,6 @@ MONTHS = enumerate(['January',
 					'October',
 					'November',
 					'December',],1)
-
 # Create your models here.
 class Month(models.Model):
 	"""
@@ -34,3 +33,6 @@ class Month(models.Model):
 
 	class Meta:
 		ordering = ['id']
+
+# for m in range(1,len(MONTHS)+1):
+#     Month.objects.create(name=MONTHS[m-1],id=m)

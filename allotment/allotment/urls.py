@@ -20,6 +20,6 @@ from plants.views import dashboard
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', dashboard, name='plants_home'),
+    url(r'^/', dashboard, name='plants_home'),
     url(r'^plants/', include('plants.urls')),
 ]

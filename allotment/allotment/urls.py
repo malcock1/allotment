@@ -19,5 +19,5 @@ import plants
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^plants/$', include('plants.urls')),
+    url(r'^plants/', include('plants.urls')),
 ]

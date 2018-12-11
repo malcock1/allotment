@@ -10,4 +10,14 @@
 		    <button type="submit" class="btn btn-primary">Submit</button>
 		{% endbuttons %}
 	</form>
+
+	<br />
+	<div>
+		<h3>Existing plants</h3>
+		<ul>
+			{% for plant in plants %}
+				<li>{{plant}}</li>
+				{% endfor %}
+		</ul>
+	</div>
 {% endblock content %}

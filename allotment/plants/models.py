@@ -22,11 +22,17 @@ class PlantSpecies(models.Model):
 	light = models.PositiveSmallIntegerField(choices=LIGHT_CHOICES, null=True, blank=True)
 	water = models.PositiveSmallIntegerField(null=True, blank=True) # How much it needs from 1-5
 
-	notes = models.TextField()
+	notes = models.TextField(null=True, blank=True)
 
 	annual = models.BooleanField(default=False)
 
 	companions = models.ManyToManyField("self", related_name='companions') # Species that go well together
+
+	def __str__(self):
+		if self.latin_name:
+			return "{} ({})".format(self.name, self.latin_name)
+		else:
+			return self.name
 
 
 class Bed(models.Model):

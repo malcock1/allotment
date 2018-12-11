@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'allotment.allotment.wsgi.application'
+WSGI_APPLICATION = 'allotment.wsgi.application'
 
 
 # Database

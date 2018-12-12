@@ -15,14 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import login, logout
 
 import plants, designs
 
+from registration.views import signup
 from dashboard.views import dashboard
 
 urlpatterns = [
+    url(r'^', include('django.contrib.auth.urls')),
+    url(r'^sign-up/$', signup, name='signup'),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', dashboard, name='plant_species_home'),
+    url(r'^$', dashboard, name='home'),
     url(r'^plants/', include('plants.urls')),
     url(r'^designs/', include('designs.urls')),
 ]

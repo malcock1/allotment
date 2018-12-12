@@ -30,7 +30,7 @@ sys.stdout = sys.stderr
 if 'DYNO' in os.environ:
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "allotment.settings_heroku")
 else:
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "allotment.settings")
+	os.environ['DJANGO_SETTINGS_MODULE'] = 'allotment.settings'
 
 from django.core.wsgi import get_wsgi_application
 

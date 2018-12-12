@@ -1,18 +1,19 @@
 from django.db import models
 
 
-MONTHS = enumerate(['January',
-					'February',
-					'March',
-					'April',
-					'May',
-					'June',
-					'July',
-					'August',
-					'September',
-					'October',
-					'November',
-					'December',],1)
+MONTHS = {	1: 'January',
+			2: 'February',
+			3: 'March',
+			4: 'April',
+			5: 'May',
+			6: 'June',
+			7: 'July',
+			8: 'August',
+			9: 'September',
+			10: 'October',
+			11: 'November',
+			12: 'December'}
+
 # Create your models here.
 class Month(models.Model):
 	"""
@@ -25,9 +26,10 @@ class Month(models.Model):
 
 	For now on the Plant I'll just use an Integer field rather than FK to a month
 	"""
-	name = models.CharField(max_length=10)
-
-
+	@property
+	def name(self):
+		return MONTHS[self.id]
+	
 	def __str__(self):
 		return self.name
 

@@ -1,27 +1,27 @@
 {% extends "allotment/base.html" %}
 {% load bootstrap4 %}
 
-
 {% block content %}
 
 	<div class="row">
 		<div class="col-sm">
-			<h3>Add a new plant species</h3>
-			<form method="POST" action="">
-				{% csrf_token %}
-					{% bootstrap_form form %}
-				  {% buttons %}
-				    <button type="submit" class="btn btn-primary">Submit</button>
-				{% endbuttons %}
-			</form>
-		</div>
-		<div class="col-sm">
-			<h3>Existing plants</h3>
-			<ul>
-				{% for plant in plants %}
-					<li>{{plant}}</li>
-					{% endfor %}
-			</ul>
+			<h3>Existing plant species</h3>
+				{% for specie in species %}
+				<div class="card" style="width: 18rem;">
+				  <div class="card-body">
+				    <h5 class="card-title">
+						<a href="{% url 'plant_species_view' specie.pk %}">{{specie}}</a>
+				    </h5>
+				    {% if specie.notes %}
+				    	<p class="card-text">{{specie.notes}}</p>
+				    {% endif %}
+				  </div>
+				  <ul class="list-group list-group-flush">
+				    <li class="list-group-item">{{specie.plants.count}} plants</li>
+				  </ul>
+				</div>
+
+				{% endfor %}
 		</div>
 	</div>
 

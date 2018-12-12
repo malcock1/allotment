@@ -8,9 +8,11 @@ LIGHT_CHOICES = [
     (5,'Full sun'),
 ]
 
+
 class PlantSpecies(models.Model):
     name = models.CharField(max_length=128)
     latin_name = models.CharField(max_length=128, null=True, blank=True)
+    families = models.ManyToManyField("PlantFamily", related_name="species")
 
     seed_indoors = models.ManyToManyField("planner.Month", related_name='plants_to_seed_indoors')
     seed_outdoors = models.ManyToManyField("planner.Month", related_name='plants_to_seed_outdoors')
@@ -28,11 +30,50 @@ class PlantSpecies(models.Model):
 
     companions = models.ManyToManyField("self", related_name='companions') # Species that go well together
 
+
+    @property
+    def dimensions_str(self):
+        dimensions = ""
+        if self.full_height:
+            dimensions += "H: {}cm".format(self.full_height)
+        if self.full_diameter:
+            dimensions += "D: {}cm".format(self.full_diameter)
+        return dimensions or None
+
+    @property
+    def annual_str(self):
+        return 'Annual' if self.annual else 'Perennial'
+
     def __str__(self):
         if self.latin_name:
             return "{} ({})".format(self.name, self.latin_name)
         else:
             return self.name
+
+
+class PlantFamily(models.Model):
+    name = models.CharField(max_length=32)
+    """
+    'Root',
+    'Allium',
+    'Salad',
+    'Brassica',
+    'Legume',
+    'Vegetable',
+    'Fruit',
+    'Berry',
+    """
+    def __str__(self):
+        return self.name
+
+
+class PlantAttribute(models.Model):
+    pass
+    """
+    'Tree',
+    'Climber',
+
+    """
 
 class PlantSource(models.Model):
     name = models.CharField(max_length=128)
@@ -42,7 +83,7 @@ class PlantSource(models.Model):
 class Plant(models.Model):
     """ An instance of a real physical plant or seed """
 
-    species = models.ForeignKey(PlantSpecies, on_delete=models.PROTECT)
+    species = models.ForeignKey(PlantSpecies, on_delete=models.PROTECT, related_name="plants")
     bed = models.ForeignKey("designs.Bed", on_delete=models.CASCADE, null=True)
 
     # Could put harvested weight in here?

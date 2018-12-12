@@ -8,15 +8,6 @@ from django.shortcuts import redirect
 from .models import PlantFamily, PlantSpecies
 from .forms import *
 
-def dashboard(request):
-	"""
-	This wants moving
-	"""
-	context = {
-		'page_title': "Dashboard",
-	}
-
-	return render(request, 'allotment/base.html', context)
 
 def plants_home(request):
 
@@ -25,7 +16,6 @@ def plants_home(request):
 		'families': PlantFamily.objects.prefetch_related('species').exclude(species=None),
 		'uncategorised_species': PlantSpecies.objects.filter(family__isnull=True)
 	}
-
 	return render(request, 'plants/home.html', context)
 
 

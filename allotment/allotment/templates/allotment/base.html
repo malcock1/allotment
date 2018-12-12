@@ -53,12 +53,12 @@
 			</nav>
 		{% endblock navbar %}
 
-
-		<div class="page bg-light">
-
-				{% block content %}
-				{% endblock content %}
+		
+		<div class="page {% block page_classes %}bg-light{% endblock page_classes %}">
+			{% block content %}
+			{% endblock content %}
 		</div>
+		
 
 
 		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

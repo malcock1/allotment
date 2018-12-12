@@ -1,4 +1,4 @@
 from django.db import models
 
 class PermaculturePrinciple(models.Model):
-	pass
+	text = models.CharField(max_length=63)

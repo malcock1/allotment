@@ -18,11 +18,11 @@ from django.contrib import admin
 
 import plants, designs
 
-from plants.views import dashboard
+from dashboard.views import dashboard
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^/', dashboard, name='plants_home'),
+    url(r'^$', dashboard, name='plants_home'),
     url(r'^plants/', include('plants.urls')),
     url(r'^designs/', include('designs.urls')),
 ]

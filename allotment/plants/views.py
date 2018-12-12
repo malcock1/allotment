@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
 
-from .models import PlantSpecies
+from .models import PlantFamily, PlantSpecies
 from .forms import *
 
 def dashboard(request):
@@ -19,15 +19,12 @@ def dashboard(request):
 	return render(request, 'allotment/base.html', context)
 
 def plants_home(request):
+
 	context = {
-		'page_title': 'Plants home',
-		'form': PlantSpeciesForm(),
-		'species': PlantSpecies.objects.all(),
+	'page_title': 'Plant catalogue',
+		'families': PlantFamily.objects.prefetch_related('species').exclude(species=None),
+		'uncategorised_species': PlantSpecies.objects.filter(family__isnull=True)
 	}
-	if request.method == "POST":
-		form = PlantSpeciesForm(request.POST)
-		if form.is_valid():
-			new_plant = form.save()
 
 	return render(request, 'plants/home.html', context)
 
@@ -50,6 +47,7 @@ def plant_species_add(request):
 		form = PlantSpeciesForm(request.POST)
 		if form.is_valid():
 			new_plant = form.save()
+			return redirect('plants_home')
 		else:
 			context['form'] = form
 	return render(request, 'plants/species_form.html', context)
@@ -65,6 +63,7 @@ def plant_species_edit(request, species_id):
 		form = PlantSpeciesForm(request.POST, instance=species)
 		if form.is_valid():
 			plant = form.save()
+			return redirect('plant_species_view', species_id)
 		else:
 			context['form'] = form
 	return render(request, 'plants/species_form.html', context)

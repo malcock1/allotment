@@ -12,15 +12,15 @@ LIGHT_CHOICES = [
 class PlantSpecies(models.Model):
     name = models.CharField(max_length=128)
     latin_name = models.CharField(max_length=128, null=True, blank=True)
-    families = models.ManyToManyField("PlantFamily", related_name="species")
+    family = models.ForeignKey("PlantFamily", null=True, blank=True, on_delete=models.SET_NULL, related_name="species")
 
     seed_indoors = models.ManyToManyField("planner.Month", related_name='plants_to_seed_indoors')
     seed_outdoors = models.ManyToManyField("planner.Month", related_name='plants_to_seed_outdoors')
     plant_out = models.ManyToManyField("planner.Month", related_name='plants_to_plant_out')
     harvest = models.ManyToManyField("planner.Month", related_name='plants_to_harvest')
 
-    full_height = models.PositiveSmallIntegerField(null=True, blank=True) # In centimeters
-    full_diameter = models.PositiveSmallIntegerField(null=True, blank=True) # In centimeters
+    full_height = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Full height (cm)') # In centimeters
+    full_diameter = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Full diameter (cm)') # In centimeters
     light = models.PositiveSmallIntegerField(choices=LIGHT_CHOICES, null=True, blank=True)
     water = models.PositiveSmallIntegerField(null=True, blank=True) # How much it needs from 1-5
 
@@ -33,12 +33,12 @@ class PlantSpecies(models.Model):
 
     @property
     def dimensions_str(self):
-        dimensions = ""
+        dimensions = []
         if self.full_height:
-            dimensions += "H: {}cm".format(self.full_height)
+            dimensions.append("H: {}cm".format(self.full_height))
         if self.full_diameter:
-            dimensions += "D: {}cm".format(self.full_diameter)
-        return dimensions or None
+            dimensions.append("D: {}cm".format(self.full_diameter))
+        return " // ".join(dimensions) or None
 
     @property
     def annual_str(self):
@@ -54,14 +54,20 @@ class PlantSpecies(models.Model):
 class PlantFamily(models.Model):
     name = models.CharField(max_length=32)
     """
-    'Root',
+    ['Root',
+    'Mushroom',
+    'Flower',
     'Allium',
-    'Salad',
+    'Salad leaves',
     'Brassica',
     'Legume',
     'Vegetable',
-    'Fruit',
-    'Berry',
+    'Hard fruit',
+    'Soft fruit',
+    'Herb',
+    'Nut',
+    'Grain',
+    'Non-edible']
     """
     def __str__(self):
         return self.name

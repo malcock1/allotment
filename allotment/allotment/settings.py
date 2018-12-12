@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
 
     'allotment',
+    'dashboard',
     'planner',
     'plants',
     'designs',

@@ -28,7 +28,8 @@
 		
 		{% block navbar %}
 			<nav class="fixed-top navbar navbar-expand-lg navbar-light bg-light">
-				<a class="navbar-brand" href="#">{{page_title}}</a>
+				<a href="/"><i class="fas fa-home"></i></a>
+				<span class="navbar-brand" href="#">{{page_title}}</span>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 				</button>
@@ -40,13 +41,22 @@
 								Plants
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="{% url 'plants_home' %}">Catalogue</a>
+								<a class="dropdown-item" href="{% url 'plant_species_home' %}">Catalogue</a>
 								<a class="dropdown-item" href="{% url 'plant_species_add' %}">Add species</a>
 							</div>
 						</li>
-
-						<li class="nav-item">
-							<a class="nav-link" href="#">Link</a>
+					</ul>
+				</div>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Sources
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="{% url 'plant_source_list' %}">Listings</a>
+								<a class="dropdown-item" href="{% url 'plant_source_add' %}">Add source</a>
+							</div>
 						</li>
 					</ul>
 				</div>

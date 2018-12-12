@@ -8,7 +8,7 @@
 				{% bootstrap_form form %}
 			  {% buttons %}
 			    <button type="submit" class="btn btn-primary">Submit</button>
-			    <a class="btn btn-secondary" href={% if form.instance %}"{% url 'plant_species_home' %}"{% else %}"{% url 'plant_species_view' form.instance.id %}"{% endif %}>Cancel</a>
+			    <a class="btn btn-secondary" href={% if form.instance %}"{% url 'plant_source_list' %}"{% else %}"{% url 'plant_source_view' form.instance.id %}"{% endif %}>Cancel</a>
 			{% endbuttons %}
 		</form>
 	</div>

@@ -22,7 +22,7 @@ class PlantSpecies(models.Model):
     full_height = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Full height (cm)') # In centimeters
     full_diameter = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Full diameter (cm)') # In centimeters
     light = models.PositiveSmallIntegerField(choices=LIGHT_CHOICES, null=True, blank=True)
-    water = models.PositiveSmallIntegerField(null=True, blank=True) # How much it needs from 1-5
+    water = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Watering requirements: 1 (drought tolerant) - 5 (needs regular watering)') # How much it needs from 1-5
 
     notes = models.TextField(null=True, blank=True)
 
@@ -84,7 +84,10 @@ class PlantAttribute(models.Model):
 class PlantSource(models.Model):
     name = models.CharField(max_length=128)
     web_address = models.CharField(max_length=256)
+    rating = models.PositiveSmallIntegerField()
 
+    def __str__(self):
+        return self.name
 
 class Plant(models.Model):
     """ An instance of a real physical plant or seed """

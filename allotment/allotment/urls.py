@@ -22,7 +22,7 @@ from dashboard.views import dashboard
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', dashboard, name='plants_home'),
+    url(r'^$', dashboard, name='plant_species_home'),
     url(r'^plants/', include('plants.urls')),
     url(r'^designs/', include('designs.urls')),
 ]

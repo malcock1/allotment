@@ -2,9 +2,19 @@ from django import forms
 from django.forms import ModelForm
 
 from .models import PlantSpecies, \
-					Plant
+					Plant, \
+					PlantSource
 
 class PlantSpeciesForm(ModelForm):
 	class Meta:
 		model = PlantSpecies
 		exclude = ('companions',)
+
+	def __init__(self, *args, **kwargs):
+		super(PlantSpeciesForm, self).__init__(*args, **kwargs)
+		self.fields['water'].widget.attrs.update(**{'min':1,'max':5})
+
+class PlantSourceForm(ModelForm):
+	class Meta:
+		model = PlantSource
+		exclude = ()

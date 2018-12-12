@@ -33,6 +33,9 @@
 				{% endfor %}
 				{% endwith %}
 			</div>
+		{% empty %}
+			<p>No plants yet!</p>
+			<p>Why not <a href="{% url 'plant_species_add' %}">add one</a>?</p>
 		{% endfor %}
 	</div>
 

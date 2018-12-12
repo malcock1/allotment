@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allotment.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'allotment.urls'
@@ -133,8 +134,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "login"
+LOGOUT_REDIRECT_URL = LOGIN_URL
+LOGIN_EXEMPT_URLS = ["sign-up"]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

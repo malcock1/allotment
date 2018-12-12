@@ -14,7 +14,6 @@ def dashboard(request):
 		'Harvest': month.plants_to_harvest.all().values_list('name', flat=True),
 	}
 	month_tasks_tidy = {k:(month_tasks[k]) for k in month_tasks if month_tasks[k]}
-	print(month_tasks_tidy)
 	context = {
 		'page_title': "Dashboard",
 		'plant_count': Plant.objects.count(),

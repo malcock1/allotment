@@ -1,6 +1,4 @@
 {% extends "allotment/base.html" %}
-{% load bootstrap4 %}
-
 
 {% block content %}
 
@@ -10,7 +8,7 @@
             <h3>Allotment designs</h3>
             <ul>
                 {% for design in designs %}
-                <li><a href="/designs/{{ design.id }}"">{{ design.name }}</a></li>
+                <li><a href="/designs/{{ design.id }}">{{ design.name }}</a></li>
                 {% endfor %}
             </ul>
 		</div>

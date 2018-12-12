@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load bootstrap4 %}
 
 <head>
 	<title>Allotment</title>
@@ -14,23 +15,12 @@
 				<div class="main-div">
 					<div class="panel">
 						<h2>Sign up</h2>
-						<p>Please enter your email and password</p>
 					</div>
 					<form method="post">
 						{% csrf_token %}
-						{{ form }}
+	                    {% bootstrap_form form %}
 						<button class="btn btn-primary" type="submit">Sign up</button>
 					</form>
-
-					<!--form class="signup" id="signup_form" method="post" action="/accounts/sign-up/">
-						{% csrf_token %}
-						<p><input type="text" name="username" placeholder="Username" autofocus="autofocus" minlength="1" maxlength="150" required id="id_username"></p>
-						<p><input type="email" name="email" placeholder="E-mail address" id="id_email"></p>
-						<p><input type="password" name="password1" placeholder="Password" required id="id_password1"></p>
-						<p><input type="password" name="password2" placeholder="Password (again)" required id="id_password2"></p>
-
-						<button class="btn btn-primary" type="submit">Sign up</button>
-					</form-->
 
 					<div class="forgot">
 						<p>Already have an account? <a href="/accounts/login/">Log in here</a>.</p>

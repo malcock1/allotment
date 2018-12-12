@@ -15,3 +15,6 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+def exit_page(request):
+	return render(request, 'registration/exit_page.html')

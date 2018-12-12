@@ -19,11 +19,12 @@ from django.contrib.auth import login, logout
 
 import plants, designs
 
-from registration.views import signup
+from registration.views import exit_page, signup
 from dashboard.views import dashboard
 
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
+    # url(r'^bye/$', exit_page, name='exit_page'),
     url(r'^sign-up/$', signup, name='signup'),
     url(r'^admin/', admin.site.urls),
     url(r'^$', dashboard, name='home'),

@@ -19,3 +19,8 @@ def detail(request, design_id):
             }
 
     return render(request, "designs/detail.html", context)
+
+def designer(request):
+    context = {}
+    return render(request, "designs/designer.html", context)
+

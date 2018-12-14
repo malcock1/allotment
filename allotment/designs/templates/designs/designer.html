@@ -1,0 +1,126 @@
+{% extends "allotment/base.html" %}
+{% load static %}
+
+{% block content %}
+    <script type="text/javascript" src="{% static "js/snap.svg.js" %}"/></script>
+    <script type="text/javascript" src="{% static "js/snap.svg.freetransform.js" %}"/></script>
+        <style>
+            svg { width: 1200px; height: 1100px; }
+        </style>
+        <svg id="drawing">
+        </svg>
+<script>
+    // MAIN
+    var s = Snap('#drawing');
+
+    // MENU
+    var g = s.g();
+var vegetable = g.image("{% static "images/crate.svg" %}", 800,10,380,460);
+    //var menu = s.rect(800,10,380, 1080).attr({ fill:"rgb(127,127,127)" });
+    var menu_title = s.text(920,70, "Toolbox").attr({ fontWeight: 'bold', fontSize: '48px' });
+    var menu_add_bed = s.text(870,120, "- Add Bed").attr({ fontWeight: 'bold', fontSize: '24px' });
+    var menu_add_bush = s.text(870,160, "- Add Bush").attr({ fontWeight: 'bold', fontSize: '24px' });
+    var menu_add_cabbage = g.image("{% static 'images/cabbage.svg' %}", 900,200, 48, 48);
+    var menu_add_corn = g.image("{% static 'images/corn.svg' %}", 1020,200, 48, 48);
+    var menu_add_beetroot = g.image("{% static 'images/beetroot.svg' %}", 900, 280, 48, 48);
+    var menu_add_bean = g.image("{% static 'images/beans.svg' %}", 1020, 280, 48, 48);
+    var menu_add_carrot = g.image("{% static 'images/carrot.svg' %}", 900,320, 48, 48);
+
+    drawGround();
+    var beds = s.group();
+    var bushes = s.group();
+    var vegetables = s.group();
+
+    // BEDS
+    menu_add_bed.click( drawBed );
+    menu_add_bush.click( function () { drawBush(bushes, 820, 130, 50) });
+    menu_add_cabbage.click( function () { drawVegetable(vegetables, 'cabbage', 820, 130, 50) });
+    menu_add_corn.click( function () { drawVegetable(vegetables, 'corn', 820, 130, 50) });
+    menu_add_beetroot.click( function () { drawVegetable(vegetables, 'beetroot', 820, 130, 50) });
+    menu_add_bean.click( function () { drawVegetable(vegetables, 'beans', 820, 130, 50) });
+    menu_add_carrot.click( function () { drawVegetable(vegetables, 'carrot', 820, 130, 50) });
+    
+    // End
+
+
+    // GROUND
+    function drawGround() {
+        var ground = s.rect(10,10,780,1080,20,20).attr({ fill: '#beda55', strokeWidth: 5 });
+        var ground_pattern = s.path("M10-5-10,15M15,0,0,15M0-5-20,15").attr({
+                fill: "none",
+                stroke: "#bada55",
+                strokeWidth: 5
+        });
+        ground_pattern = ground_pattern.pattern(0, 0, 10, 10);
+        ground.attr({fill: ground_pattern});
+        // End
+
+        // Draw the railway sleeper at the bottom
+        var sleeper = s.rect(10, 1070, 780, 20, 5, 5).attr({ fill:'#943126' })
+    }
+    // End
+
+    // BEDS
+    function drawBed () {
+        bed = s.rect(820, 59,100,100,5,5).attr({ fill: '#641e16', stroke: '#943126', strokeWidth: 5 })
+        .dblclick( function() {
+            if( beds.data('ftStatus') ){
+                ft.hideHandles();
+                beds.data('ftStatus',0);
+            } else {
+                ft.showHandles();
+                beds.data('ftStatus',1);
+            }
+        });
+        beds.append(bed);
+        var ft = s.freeTransform(bed, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+        beds.attr({ cursor: 'move' });
+        ft.apply();
+        beds.data('ftStatus', 1);
+    };
+    // End
+
+    // BUSH
+    function drawBush(group, x1, y1, length) {
+        var bush = s.circle(x1 + 10 - Math.floor(Math.random() * 20), y1 + 10 - Math.floor(Math.random() * 20), Math.random() * length / 1.3);
+        bush.attr({
+            stroke: "#00ff00",
+            fill: "#008000"
+        }).dblclick( function() {
+            if( bush.data('ftStatus') ){
+                ft.hideHandles();
+                bush.data('ftStatus',0);
+            } else {
+                ft.showHandles();
+                bush.data('ftStatus',1);
+            }
+        });
+        group.append(bush);
+        var ft = s.freeTransform(bush, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+        group.attr({ cursor: 'move' });
+        ft.apply();
+        group.data('ftStatus', 1);
+    }
+
+    // VEGE
+    function drawVegetable(group, type, x1, y1, length) {
+        var g = s.g();
+        var vegetable = g.image("/static/images/" + type + ".svg", x1, y1, 32, 32);
+        vegetable.dblclick( function() {
+            if( vegetable.data('ftStatus') ){
+                ft.hideHandles();
+                vegetable.data('ftStatus',0);
+            } else {
+                ft.showHandles();
+                vegetable.data('ftStatus',1);
+            }
+        });
+        group.append(vegetable);
+        var ft = s.freeTransform(vegetable, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+        group.attr({ cursor: 'move' });
+        ft.apply();
+        group.data('ftStatus', 1);
+    }
+</script>
+
+{% endblock %}

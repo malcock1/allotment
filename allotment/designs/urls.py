@@ -7,4 +7,6 @@ urlpatterns = [
     path('', views.index, name='designs_index'),
     # /designs/1/
     path('<int:design_id>/', views.detail, name='designs_detail'),
+    # /designs/designer/
+    path('designer/', views.designer, name='designs_designer'),
 ]

@@ -1,6 +1,7 @@
 from datetime import datetime
-from django.shortcuts import render
+from random import randint
 
+from django.shortcuts import render
 
 from planner.models import Month
 from plants.models import Plant, PlantSpecies
@@ -18,5 +19,6 @@ def dashboard(request):
 		'page_title': "Dashboard",
 		'plant_count': Plant.objects.count(),
 		'month_tasks': month_tasks_tidy,
+		'principle': "dashboard/principle_{}.gif".format(str(randint(1,12))),
 	}
 	return render(request, 'dashboard/dashboard.html', context)

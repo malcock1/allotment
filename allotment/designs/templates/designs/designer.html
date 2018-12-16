@@ -134,6 +134,7 @@
             });
             c.forEach(function(el) {
                 var ft = s.freeTransform( el, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+                el.data('ftStatus',0);
                 el.dblclick( function() {
                     if( el.data('ftStatus' ) ) {
                         ft.hideHandles();
@@ -159,7 +160,6 @@
             beds.add(b);
             bushes.add(v);
             vegetables.add(c);
-
         });
     }
 

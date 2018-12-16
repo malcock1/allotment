@@ -122,6 +122,7 @@
 
             b.forEach(function(el) {
                 var ft = s.freeTransform( el, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+                ft.hideHandles();
                 el.data('ftStatus',0);
                 el.dblclick( function() {
                     if( el.data('ftStatus' ) ) {
@@ -135,6 +136,7 @@
             });
             c.forEach(function(el) {
                 var ft = s.freeTransform( el, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+                ft.hideHandles();
                 el.data('ftStatus',0);
                 el.dblclick( function() {
                     if( el.data('ftStatus' ) ) {
@@ -148,6 +150,7 @@
             });
             v.forEach(function(el) {
                 var ft = s.freeTransform( el, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+                ft.hideHandles();
                 el.data('ftStatus',0);
                 el.dblclick( function() {
                     if( el.data('ftStatus' ) ) {

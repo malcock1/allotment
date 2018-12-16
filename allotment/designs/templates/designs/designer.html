@@ -24,8 +24,10 @@
     var menu_add_beetroot = g.image("{% static 'images/beetroot.svg' %}", 900, 280, 48, 48);
     var menu_add_bean = g.image("{% static 'images/beans.svg' %}", 1020, 280, 48, 48);
     var menu_add_carrot = g.image("{% static 'images/carrot.svg' %}", 900,320, 48, 48);
+    var menu_save = s.text(870,500, "- Save").attr({ fontWeight: 'bold', fontSize: '24px' });
 
     drawGround();
+    loadDesign(11);
 
     var beds = s.group();
     var bushes = s.group();
@@ -39,6 +41,7 @@
     menu_add_beetroot.click( function () { draw(vegetables, 'beetroot', 820, 130, 50) });
     menu_add_bean.click( function () { draw(vegetables, 'beans', 820, 130, 50) });
     menu_add_carrot.click( function () { draw(vegetables, 'carrot', 820, 130, 50) });
+    menu_save.click( saveDesign  );
     
     // End
 
@@ -61,7 +64,7 @@
     // End
 
     // DRAW
-    function drawVegetable(group, type, x1, y1, length) {
+    function draw(group, type, x1, y1, length) {
         var g = s.g();
         if (type == 'bed') {
             var item = s.rect(820, 59,100,100,5,5).attr({ fill: '#641e16', stroke: '#943126', strokeWidth: 5 })
@@ -74,7 +77,7 @@
         else {
             var item = g.image("/static/images/" + type + ".svg", x1, y1, 32, 32).attr({
                 stroke: "#00ff00",
-                fill: "#008000"
+                fill: "#008000",
             });
         }
 
@@ -87,11 +90,42 @@
                 item.data('ftStatus',1);
             }
         });
+        group.attr('class', 'item');
         group.append(item);
         var ft = s.freeTransform(item, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
         group.attr({ cursor: 'move' });
         ft.apply();
         group.data('ftStatus', 1);
+    }
+
+    function saveDesign() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "{% url 'designs_add' %}", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader("X-CSRFToken", "{{ csrf_token }}" );
+        var svg = beds.outerSVG() + vegetables.outerSVG() + bushes.outerSVG();
+        xhttp.send('svg=' + encodeURIComponent(svg));
+    }
+
+    function loadDesign(design_id) {
+        Snap.load("/designs/edit/" + design_id, function(frag) {
+//            var g = s.g();
+            s.append(frag);
+            var allG = s.selectAll('.item');
+            allG.forEach(function(el) {
+                var ft = s.freeTransform( el, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+                el.dblclick( function() {
+                    if( el.data('ftStatus' ) ) {
+                        ft.hideHandles();
+                        el.data('ftStatus',0);
+                    } else {
+                        ft.showHandles();
+                        el.data('ftStatus',1);
+                    }
+                });
+            });
+
+        });
     }
 
 </script>

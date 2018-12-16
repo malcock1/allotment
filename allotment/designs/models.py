@@ -7,15 +7,14 @@ class Design(models.Model):
     This model defines a design layout for the allotment
 
     The width and height properties will be used to calculate
-    the DIV grid in the template. A size of 1 will equal 1 metre
-    but a grid will split a metre into multiple DIVS(not sure how
-    many yet!)
+    the SVG size in the template. A size of 1 will equal 1 metre
 
     """
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     width = models.PositiveSmallIntegerField()
     height = models.PositiveSmallIntegerField()
+    svg = models.TextField(blank=True)
     beds = models.ManyToManyField("Bed", related_name="beds")
 
     def __str__(self):
@@ -24,7 +23,6 @@ class Design(models.Model):
 class Bed(models.Model):
     """
     This model is a raise bed or an area to plant plants
-    it has a ForeignKey to th associated design.
     """
 
     name = models.CharField(max_length=128)

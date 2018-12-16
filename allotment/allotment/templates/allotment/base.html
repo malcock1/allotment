@@ -58,6 +58,16 @@
 						</div>
 					</li>
 				</ul>
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Planner
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="{% url 'year_view' %}">Plant calendar</a>
+						</div>
+					</li>
+				</ul>
 				<div class="navbar-right">
 					<div class="collapse navbar-collapse" id="navbarPlants">
 						<ul class="navbar-nav mr-auto">
@@ -89,9 +99,6 @@
 		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-		 {% block extra_scripts %}
-		 	
-		 {% endblock extra_scripts %}
 
 </body>
 </html>

@@ -34,26 +34,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					
 				{% for species in plant_species %}
-					<td><a href="{% url 'plant_species_view' species.id %}">{{species}}</a></td>
-					<td>&nbsp;</td>
-					{% for y,z in species.month_matrix.items %}
-						<td id="species_{{species.id}}" class="{{z}}"></td>
-					{% endfor %}
+					<tr>
+						<td><a href="{% url 'plant_species_view' species.id %}">{{species}}</a></td>
+						<td>&nbsp;</td>
+						{% for y,z in species.month_matrix.items %}
+							<td id="species_{{species.id}}" class="{{z}}"></td>
+						{% endfor %}
+					</tr>
 				{% endfor %}
-				
-				</tr>
 			</tbody>
 		</table>
 	</div>
 
 {% endblock content %}
 
-{% block extra_scripts %}
-	<script type="text/javascript">
-
-
-	</script>
-{% endblock extra_scripts %}

@@ -8,7 +8,7 @@ from .models import PlantSpecies, \
 class PlantSpeciesForm(ModelForm):
 	class Meta:
 		model = PlantSpecies
-		exclude = ('companions',)
+		exclude = ('companions','user_group',)
 
 	def __init__(self, *args, **kwargs):
 		super(PlantSpeciesForm, self).__init__(*args, **kwargs)

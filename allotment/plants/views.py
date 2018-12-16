@@ -10,10 +10,12 @@ from .forms import *
 
 
 def plant_species_home(request):
+	families = PlantFamily.objects.prefetch_related('species').exclude(species=None)
+	uncategorised_species = PlantSpecies.objects.filter(family__isnull=True)
+	families = list(families)+list(uncategorised_species)
 	context = {
-	'page_title': 'Plant catalogue',
-		'families': PlantFamily.objects.prefetch_related('species').exclude(species=None),
-		'uncategorised_species': PlantSpecies.objects.filter(family__isnull=True)
+		'page_title': 'Plant catalogue',
+		'families': families,
 	}
 	return render(request, 'plants/home.html', context)
 
@@ -36,6 +38,10 @@ def plant_species_add(request):
 		form = PlantSpeciesForm(request.POST)
 		if form.is_valid():
 			new_plant = form.save()
+			#TODO: vvv Move this to the form's save method vvv
+			user_group = request.user.groups.first()
+			new_plant.user_group = user_group
+			new_plant.save()
 			return redirect('plant_species_home')
 		else:
 			context['form'] = form

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="./snap.svg.js"/></script>
+        <script type="text/javascript" src="./snap.svg.freetransform.js"/></script>
+        <style>
+            svg { width: 1200px; height: 1100px; }
+        </style>
+    </head>
+    <body>
+        <svg id="drawing">
+        </svg>
+    </body>
+</html>
+
+<script>
+    var s = Snap('#drawing');
+    // Menu 
+    var menu = s.rect(800,10,380, 1080).attr({ fill:"rgb(127,127,127)" });
+    var menu_title = s.text(820,50, "Toolbox").attr({ fontWeight: 'bold', fontSize: '48px' });
+    var menu_add_bed = s.text(820,90, "- Add Bed").attr({ fontWeight: 'bold', fontSize: '24px' });
+
+
+    menu_add_bed.click( drawBed );
+    // End
+
+    // Draw ground
+    var ground = s.rect(10,10,780,1080,20,20).attr({ fill: '#beda55', strokeWidth: 5 });
+    var ground_pattern = s.path("M10-5-10,15M15,0,0,15M0-5-20,15").attr({
+            fill: "none",
+            stroke: "#bada55",
+            strokeWidth: 5
+    });
+    ground_pattern = ground_pattern.pattern(0, 0, 10, 10);
+    ground.attr({fill: ground_pattern});
+    // End
+    var beds = s.group();
+    var ft = s.freeTransform(beds, { snap: { rotate: 1 }, size: 8, draw: 'bbox'  });
+    ft.apply();
+    beds.data('ftStatus', 0);
+    ft.hideHandles();
+    //beds.attr({ cursor: 'move' });
+
+    // Draw the railway sleeper at the bottom
+    var sleeper = s.rect(10, 1070, 780, 20, 5, 5).attr({ fill:'#943126' })
+    // End
+
+    // Draw a raised bed
+
+function drawBed (e) {
+        beds.append(s.rect(e.clientX,e.clientY,100,100,5,5).attr({ fill: '#641e16', stroke: '#943126', strokeWidth: 5 }));
+    beds.dblclick( function() {
+        if( beds.data('ftStatus' ) ) {
+            ft.hideHandles();
+            beds.data('ftStatus',0);
+        } else {
+            ft.showHandles();
+            beds.data('ftStatus',1);
+        }
+    });
+};
+    // End
+
+    // Draw compost bin
+    var cbin1 = s.circle(80, 1000, 60).attr({ fill: 'brown', stroke:'#abb2b9', strokeWidth: 5 });
+    var cbin1_inner1 = s.circle(80, 1000, 60).attr({ fill: 'green' });
+    var green_pattern = s.path("M10-5-10,15M15,0,0,15M0-5-20,15").attr({
+            fill: "brown",
+            stroke: "green",
+            strokeWidth: 5
+    });
+    green_pattern = green_pattern.pattern(5, 5, 5, 10);
+    cbin1_inner1.attr({fill: green_pattern});
+    // End
+  
+    // Draw trees
+    function drawLeaves(group, x1, y1, length, depth) {
+        for (var i = 0; i < 2; i++) {
+            var leave = s.circle(x1 + 10 - Math.floor(Math.random() * 20), y1 + 10 - Math.floor(Math.random() * 20), Math.random() * length / 1.3);
+            leave.attr({
+               stroke: "#00ff00",
+               fill: "#008000"
+             });
+             group.append(leave);
+        }
+    }
+
+    function drawTree(group, x1, y1, length, rot, depth) {
+        if (depth > 4 || length < 1.0) {
+            drawLeaves(group, x1, y1, length, depth);
+            return group;
+        } else {
+            var radian = rot * Math.PI / 180.0;
+            var x2 = x1 + (Math.cos(radian) * length); //- Math.sin(radian) * length);
+            var y2 = y1 + (Math.sin(radian) * length); //+ Math.cos(radian) * length;
+            var trunk = s.line(x1, y1, x2, y2);
+            trunk.attr({
+                stroke: "#000000",
+                "strokeWidth": 3 * (10 - depth) * length / 60.0
+            }); //Math.sqrt(length)*(15-depth)});
+            group.append(trunk);
+            drawTree(group, x2, y2, length * 0.8, rot + Math.floor(Math.random() * 40) + 20, depth + 1);
+            drawTree(group, x2, y2, length * 0.8, rot - Math.floor(Math.random() * 40) - 20, depth + 1);
+            drawTree(group, x2, y2, length * 0.4, rot - Math.floor(Math.random() * 13) - 1, depth + 2);
+        }
+    }
+    drawTree(s, 500, 500, 100, -90.0, 0);
+    drawTree(s, 100, 600, 100, -90.0, 0);
+    // End
+
+    // Draw some top down viewed bushs and/or trees
+    drawLeaves(s, 10,50, 50, 0);
+    drawLeaves(s, 50,60, 5, 0);
+    drawLeaves(s, 100,50, 20, 0);
+    drawLeaves(s, 150,60, 150, 0);
+
+    // Draw some vegetables!!
+    g = s.g();
+    var cabbage1 = g.image("./cabbage.svg", 210, 960, 32, 32);
+    var cabbage2 = g.image("./cabbage.svg", 260, 960, 32, 32);
+    var cabbage3 = g.image("./cabbage.svg", 210, 1010, 32, 32);
+    var cabbage4 = g.image("./cabbage.svg", 260, 1010, 32, 32);
+
+
+    var carrot1 = g.image("./carrot.svg", 330, 960, 32, 32);
+    var carrot2 = g.image("./carrot.svg", 380, 960, 32, 32);
+    var carrot3 = g.image("./carrot.svg", 330, 1010, 32, 32);
+    var carrot4 = g.image("./carrot.svg", 380, 1010, 32, 32);
+
+    var bean1 = g.image("./beans.svg", 20, 755, 32, 32);
+    var bean2 = g.image("./beans.svg", 20, 790, 32, 32);
+    var bean3 = g.image("./beans.svg", 20, 825, 32, 32);
+    var bean4 = g.image("./beans.svg", 20, 860, 32, 32);
+
+    var corn1 = g.image("./corn.svg", 210, 780, 32, 32);
+    var corn2 = g.image("./corn.svg", 260, 780, 32, 32);
+    var corn3 = g.image("./corn.svg", 210, 825, 32, 32);
+    var corn4 = g.image("./corn.svg", 260, 825, 32, 32);
+
+</script>

@@ -2,17 +2,39 @@
 {% load common_helpers %}
 
 {% block extra_styling %}
-	.plant_out {
-		background-color: green;
+	.plant_out > div:nth-of-type(1) {
+		background: repeating-linear-gradient(
+		  135deg,
+		  transparent,
+		  transparent 10px,
+		  green 10px,
+		  green 20px
+		);
+		height:8px;
 	}
-	.seed_indoors {
-		background-color: cyan;
+	.seed_indoors > div:nth-of-type(2) {
+		background: repeating-linear-gradient(
+		  135deg,
+		  #465298,
+		  #465298 10px,
+		  transparent 10px,
+		  transparent 20px
+		);
+		height:8px;
 	}
-	.seed_outdoors {
-		background-color: orange;
+	.seed_outdoors > div:nth-of-type(3) {
+		background: repeating-linear-gradient(
+		  95deg,
+		  orange,
+		  orange 2px,
+		  transparent 2px,
+		  transparent 4px
+		);
+		height:8px;
 	}
-	.harvest {
+	.harvest > div:nth-of-type(4) {
 		background-color: purple;
+		height:8px;
 	}
 	table#year_planner th {
 		min-width: 4rem;
@@ -22,6 +44,18 @@
 {% block content %}
 
 	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<table>
+					<tr class="plant_out seed_indoors seed_outdoors harvest">
+						<div></div>Plant out
+						<div>Seed outdoors</div>
+						<div></div>
+						<div></div>
+					</tr>
+				</table>
+			</div>
+		</div>
 		<table id="year_planner">
 			<thead class="thead-light">
 				<tr>
@@ -39,7 +73,12 @@
 						<td><a href="{% url 'plant_species_view' species.id %}">{{species}}</a></td>
 						<td>&nbsp;</td>
 						{% for y,z in species.month_matrix.items %}
-							<td id="species_{{species.id}}" class="{{z}}"></td>
+							<td id="species_{{species.id}}" class="{{z}}">
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}

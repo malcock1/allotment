@@ -1,0 +1,59 @@
+{% extends "allotment/base.html" %}
+{% load common_helpers %}
+
+{% block extra_styling %}
+	.plant_out {
+		background-color: green;
+	}
+	.seed_indoors {
+		background-color: cyan;
+	}
+	.seed_outdoors {
+		background-color: orange;
+	}
+	.harvest {
+		background-color: purple;
+	}
+	table#year_planner th {
+		min-width: 4rem;
+	}
+{% endblock extra_styling %}
+	
+{% block content %}
+
+	<div class="container">
+		<table id="year_planner">
+			<thead class="thead-light">
+				<tr>
+					<th>Plant species </th>
+					<th>&nbsp;</th>
+					{% for month in months %}
+						<th>{{month.name|trunc_chars:3}}</th>
+					{% endfor %}
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					
+				{% for species in plant_species %}
+					<td><a href="{% url 'plant_species_view' species.id %}">{{species}}</a></td>
+					<td>&nbsp;</td>
+					{% for y,z in species.month_matrix.items %}
+						<td id="species_{{species.id}}" class="{{z}}"></td>
+					{% endfor %}
+				{% endfor %}
+				
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+	<script type="text/javascript">
+
+
+	</script>
+{% endblock extra_scripts %}

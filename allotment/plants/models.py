@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import Group
 
 LIGHT_CHOICES = [
     (1,'Full shade'),
@@ -8,11 +9,13 @@ LIGHT_CHOICES = [
     (5,'Full sun'),
 ]
 
+MONTH_ACTIVITIES = ['seed_indoors','seed_outdoors','plant_out','harvest',]
 
 class PlantSpecies(models.Model):
     name = models.CharField(max_length=128)
     latin_name = models.CharField(max_length=128, null=True, blank=True)
     family = models.ForeignKey("PlantFamily", null=True, blank=True, on_delete=models.SET_NULL, related_name="species")
+    user_group = models.ForeignKey(Group, null=True, on_delete=models.CASCADE, related_name="plant_species")
 
     seed_indoors = models.ManyToManyField("planner.Month", related_name='plants_to_seed_indoors')
     seed_outdoors = models.ManyToManyField("planner.Month", related_name='plants_to_seed_outdoors')
@@ -49,6 +52,22 @@ class PlantSpecies(models.Model):
             return "{} ({})".format(self.name, self.latin_name)
         else:
             return self.name
+
+    @property
+    def month_matrix(self):
+        from planner.models import MONTHS, Month
+        d = {
+            month_id: "" for month_id in MONTHS.keys()
+        }
+        dd = {
+            activity: list(getattr(self, activity).values_list('id', flat=True)) for activity in MONTH_ACTIVITIES
+        }
+        months = Month.objects.all()
+        for activity in dd:
+            for month_id in dd[activity]:
+                d[month_id]+="{} ".format(activity)
+        return d
+
 
 
 class PlantFamily(models.Model):

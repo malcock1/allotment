@@ -29,7 +29,7 @@ class Month(models.Model):
 	@property
 	def name(self):
 		return MONTHS[self.id]
-	
+
 	def __str__(self):
 		return self.name
 

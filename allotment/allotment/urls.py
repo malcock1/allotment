@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import login, logout
 
-import plants, designs
+import plants, planner, designs
 
 from registration.views import exit_page, signup
 from dashboard.views import dashboard
@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', dashboard, name='home'),
     url(r'^plants/', include('plants.urls')),
+    url(r'^planner/', include('planner.urls')),
     url(r'^designs/', include('designs.urls')),
 ]

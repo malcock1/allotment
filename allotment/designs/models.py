@@ -34,5 +34,3 @@ class Bed(models.Model):
 
     def __str__(self):
         return "Bed: " + self.name
-
-

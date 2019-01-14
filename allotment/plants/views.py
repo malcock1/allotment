@@ -12,7 +12,8 @@ from .forms import *
 def plant_species_home(request):
 	families = PlantFamily.objects.prefetch_related('species').exclude(species=None)
 	uncategorised_species = PlantSpecies.objects.filter(family__isnull=True)
-	families = list(families)+list(uncategorised_species)
+	families = [(f.name, f.species.all()) for f in families]
+	if uncategorised_species: families += [('Other', uncategorised_species)]
 	context = {
 		'page_title': 'Plant catalogue',
 		'families': families,

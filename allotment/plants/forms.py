@@ -13,6 +13,7 @@ class PlantSpeciesForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(PlantSpeciesForm, self).__init__(*args, **kwargs)
 		self.fields['water'].widget.attrs.update(**{'min':1,'max':5})
+		self.fields['harvest'].widget.attrs.update(**{'class':'blue-test'})
 
 class PlantSourceForm(ModelForm):
 	class Meta:

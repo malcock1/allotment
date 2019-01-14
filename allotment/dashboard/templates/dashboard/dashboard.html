@@ -27,7 +27,7 @@
 							{% with month_tasks|get_value:task_name as tasks %}
 								{{task_name}}:
 								{% for plant_task in tasks %}
-									{{plant_task}}									    	
+									<a href="{% url 'plant_species_view' plant_task.id %}">{{plant_task.name}}</a>
 								{% endfor %}
 							{% endwith %}
 							</li>

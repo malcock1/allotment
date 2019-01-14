@@ -7,24 +7,28 @@
 	</div-->
 	<div class="container">
 		{% for family_name, species in families %}
-				<h4>{{family_name}}</h4>
-				{% for specie in species %}
-					<div class="col-sm-4 col-md-3">
-						<div class="card">
-						  <div class="card-body">
-						    <h5 class="card-title">
-								<a href="{% url 'plant_species_view' specie.pk %}">{{specie.name}}</a>
-						    </h5>
-						    {% if specie.latin_name %}
-						    	<p class="card-text"><em>{{specie.latin_name}}</em></p>
-						    {% endif %}
-						  </div>
-						  <ul class="list-group list-group-flush">
-						    <li class="list-group-item">{{specie.plants.count}} plants</li>
-						  </ul>
+				<div class="row">
+					<h4>{{family_name}}</h4>
+				</div>
+				<div class="row">
+					{% for specie in species %}
+						<div class="col-sm-4 col-md-3">
+							<div class="card">
+							  <div class="card-body">
+							    <h5 class="card-title">
+									<a href="{% url 'plant_species_view' specie.pk %}">{{specie.name}}</a>
+							    </h5>
+							    {% if specie.latin_name %}
+							    	<p class="card-text"><em>{{specie.latin_name}}</em></p>
+							    {% endif %}
+							  </div>
+							  <ul class="list-group list-group-flush">
+							    <li class="list-group-item">{{specie.plants.count}} plants</li>
+							  </ul>
+							</div>
 						</div>
-					</div>
-				{% endfor %}
+					{% endfor %}
+				</div>
 		{% empty %}
 			<p>No plants yet!</p>
 			<p>Why not <a href="{% url 'plant_species_add' %}">add one</a>?</p>
